@@ -3397,4 +3397,6 @@ input:checked + .slider:before {
     .success-stats .stat-item {
         min-width: auto;
     }
-} 
+}
+
+/* Test class removed - changes are working */
