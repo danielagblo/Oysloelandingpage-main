@@ -1,0 +1,94 @@
+{% extends "admin/change_list.html" %}
+{% load static %}
+
+{% block content_title %}
+    <h1>Seller Management</h1>
+{% endblock %}
+
+{% block object-tools-items %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <!-- Statistics Summary -->
+    <div class="stats-summary" style="margin-bottom: 20px; display: flex; gap: 15px; flex-wrap: wrap;">
+        <div class="stat-box" style="background: linear-gradient(135deg, #2563eb, #3b82f6); color: white; padding: 15px; border-radius: 8px; flex: 1; min-width: 150px; text-align: center;">
+            <h3 style="margin: 0; font-size: 1.5rem;">{{ total_sellers }}</h3>
+            <p style="margin: 5px 0 0 0; opacity: 0.9;">Total Sellers</p>
+        </div>
+        <div class="stat-box" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 15px; border-radius: 8px; flex: 1; min-width: 150px; text-align: center;">
+            <h3 style="margin: 0; font-size: 1.5rem;">{{ pending_sellers }}</h3>
+            <p style="margin: 5px 0 0 0; opacity: 0.9;">Pending Review</p>
+        </div>
+        <div class="stat-box" style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 15px; border-radius: 8px; flex: 1; min-width: 150px; text-align: center;">
+            <h3 style="margin: 0; font-size: 1.5rem;">{{ approved_sellers }}</h3>
+            <p style="margin: 5px 0 0 0; opacity: 0.9;">Approved</p>
+        </div>
+        <div class="stat-box" style="background: linear-gradient(135deg, #ef4444, #dc2626); color: white; padding: 15px; border-radius: 8px; flex: 1; min-width: 150px; text-align: center;">
+            <h3 style="margin: 0; font-size: 1.5rem;">{{ rejected_sellers }}</h3>
+            <p style="margin: 5px 0 0 0; opacity: 0.9;">Rejected</p>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions" style="margin-bottom: 20px; padding: 15px; background: #f8fafc; border-radius: 8px; border-left: 4px solid #2563eb;">
+        <h4 style="margin: 0 0 10px 0; color: #2563eb;">Quick Actions</h4>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <a href="?status__exact=pending" class="btn-warning" style="text-decoration: none;">View Pending</a>
+            <a href="?status__exact=approved" class="btn-success" style="text-decoration: none;">View Approved</a>
+            <a href="?status__exact=rejected" class="btn-primary" style="text-decoration: none;">View Rejected</a>
+            <a href="{% url 'admin:sellers_seller_add' %}" class="btn-primary" style="text-decoration: none;">Add New Seller</a>
+        </div>
+    </div>
+
+    {{ block.super }}
+{% endblock %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <style>
+        .stats-summary {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        
+        .quick-actions {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+        
+        .results {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .results thead th {
+            background: #f8fafc;
+            border-bottom: 2px solid #e2e8f0;
+            font-weight: 600;
+        }
+        
+        .results tbody tr:hover {
+            background-color: #f8fafc;
+        }
+        
+        @media (max-width: 768px) {
+            .stats-summary {
+                flex-direction: column;
+            }
+            
+            .stat-box {
+                min-width: 100%;
+            }
+            
+            .quick-actions {
+                text-align: center;
+            }
+        }
+    </style>
+{% endblock %} 

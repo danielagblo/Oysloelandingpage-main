@@ -1,0 +1,196 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('OYSLOE Admin') }}{% endblock %}
+
+{% block extrastyle %}
+<style>
+    :root {
+        --primary-color: #2563eb;
+        --secondary-color: #1e40af;
+        --accent-color: #3b82f6;
+        --success-color: #10b981;
+        --warning-color: #f59e0b;
+        --danger-color: #ef4444;
+        --light-bg: #f8fafc;
+        --dark-bg: #1e293b;
+        --border-color: #e2e8f0;
+    }
+
+    /* Header customization */
+    #header {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    #header a:link, #header a:visited {
+        color: white;
+    }
+
+    #branding h1 {
+        font-weight: 600;
+        font-size: 1.5rem;
+    }
+
+    /* Sidebar customization */
+    #nav-sidebar {
+        background: var(--light-bg);
+        border-right: 1px solid var(--border-color);
+    }
+
+    #nav-sidebar .current-app .section {
+        background: var(--primary-color);
+        color: white;
+        border-radius: 6px;
+        margin: 4px 8px;
+        padding: 8px 12px;
+    }
+
+    #nav-sidebar .current-app .section a {
+        color: white;
+    }
+
+    /* Content area */
+    #content {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        margin: 20px;
+        padding: 20px;
+    }
+
+    /* Dashboard cards */
+    .dashboard-card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 20px;
+        border-left: 4px solid var(--primary-color);
+    }
+
+    .dashboard-card h3 {
+        color: var(--primary-color);
+        margin-top: 0;
+        font-size: 1.1rem;
+    }
+
+    .stat-card {
+        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        color: white;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .stat-card h4 {
+        font-size: 2rem;
+        margin: 0;
+        font-weight: bold;
+    }
+
+    .stat-card p {
+        margin: 5px 0 0 0;
+        opacity: 0.9;
+    }
+
+    /* Buttons */
+    .btn-primary {
+        background: var(--primary-color);
+        border: none;
+        border-radius: 6px;
+        padding: 8px 16px;
+        color: white;
+        text-decoration: none;
+        display: inline-block;
+        transition: background-color 0.2s;
+    }
+
+    .btn-primary:hover {
+        background: var(--secondary-color);
+        color: white;
+    }
+
+    .btn-success {
+        background: var(--success-color);
+        border: none;
+        border-radius: 6px;
+        padding: 8px 16px;
+        color: white;
+        text-decoration: none;
+        display: inline-block;
+        transition: background-color 0.2s;
+    }
+
+    .btn-warning {
+        background: var(--warning-color);
+        border: none;
+        border-radius: 6px;
+        padding: 8px 16px;
+        color: white;
+        text-decoration: none;
+        display: inline-block;
+        transition: background-color 0.2s;
+    }
+
+    /* Tables */
+    .results {
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .results thead th {
+        background: var(--light-bg);
+        border-bottom: 2px solid var(--border-color);
+        font-weight: 600;
+    }
+
+    /* Status badges */
+    .status-badge {
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        text-transform: uppercase;
+    }
+
+    .status-pending {
+        background: #fef3c7;
+        color: #92400e;
+    }
+
+    .status-approved {
+        background: #d1fae5;
+        color: #065f46;
+    }
+
+    .status-rejected {
+        background: #fee2e2;
+        color: #991b1b;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+        #content {
+            margin: 10px;
+            padding: 15px;
+        }
+        
+        .stat-card h4 {
+            font-size: 1.5rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    <img src="{% static 'admin/img/icon-addlink.svg' %}" alt="OYSLOE" style="width: 24px; height: 24px; margin-right: 8px; vertical-align: middle;">
+    {{ site_header|default:_('OYSLOE Marketplace Admin') }}
+</h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %} 

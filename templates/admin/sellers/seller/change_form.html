@@ -1,0 +1,186 @@
+{% extends "admin/change_form.html" %}
+{% load static %}
+
+{% block content_title %}
+    <h1>
+        {% if original %}
+            Edit Seller: {{ original.business_name }}
+        {% else %}
+            Add New Seller
+        {% endif %}
+    </h1>
+{% endblock %}
+
+{% block field_sets %}
+    {% if original %}
+    <!-- Seller Status Overview -->
+    <div class="seller-status-overview" style="margin-bottom: 20px; padding: 15px; background: #f8fafc; border-radius: 8px; border-left: 4px solid #2563eb;">
+        <h3 style="margin: 0 0 10px 0; color: #2563eb;">Seller Overview</h3>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+            <div>
+                <strong>Business:</strong> {{ original.business_name }}
+            </div>
+            <div>
+                <strong>Owner:</strong> {{ original.owner_name }}
+            </div>
+            <div>
+                <strong>Status:</strong> 
+                <span class="status-badge status-{{ original.status }}">
+                    {{ original.get_status_display }}
+                </span>
+            </div>
+            <div>
+                <strong>Created:</strong> {{ original.created_at|date:"M d, Y" }}
+            </div>
+            {% if original.reviewed_by %}
+            <div>
+                <strong>Reviewed by:</strong> {{ original.reviewed_by.get_full_name|default:original.reviewed_by.username }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+
+    {{ block.super }}
+{% endblock %}
+
+{% block after_field_sets %}
+    {% if original %}
+    <!-- Quick Actions -->
+    <div class="quick-actions" style="margin-top: 20px; padding: 15px; background: #f8fafc; border-radius: 8px; border-left: 4px solid #10b981;">
+        <h3 style="margin: 0 0 10px 0; color: #10b981;">Quick Actions</h3>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            {% if original.status == 'pending' %}
+                <button type="button" onclick="approveSeller()" class="btn-success" style="border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer;">Approve Seller</button>
+                <button type="button" onclick="rejectSeller()" class="btn-warning" style="border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer;">Reject Seller</button>
+            {% endif %}
+            <a href="{% url 'admin:sellers_seller_changelist' %}" class="btn-primary" style="text-decoration: none; padding: 8px 16px; border-radius: 6px;">Back to List</a>
+        </div>
+    </div>
+
+    <!-- Contact Information -->
+    <div class="contact-info" style="margin-top: 20px; padding: 15px; background: #f8fafc; border-radius: 8px; border-left: 4px solid #f59e0b;">
+        <h3 style="margin: 0 0 10px 0; color: #f59e0b;">Contact Information</h3>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+            <div>
+                <strong>Email:</strong> <a href="mailto:{{ original.email_address }}">{{ original.email_address }}</a>
+            </div>
+            {% if original.phone_number %}
+            <div>
+                <strong>Phone:</strong> <a href="tel:{{ original.phone_number }}">{{ original.phone_number }}</a>
+            </div>
+            {% endif %}
+            {% if original.location %}
+            <div>
+                <strong>Location:</strong> {{ original.location }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <style>
+        .seller-status-overview,
+        .quick-actions,
+        .contact-info {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-row {
+            margin-bottom: 15px;
+        }
+        
+        .form-row label {
+            font-weight: 600;
+            color: #374151;
+        }
+        
+        .form-row input,
+        .form-row select,
+        .form-row textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        
+        .form-row input:focus,
+        .form-row select:focus,
+        .form-row textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+        
+        .submit-row {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .submit-row input {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .submit-row input:hover {
+            background: #1d4ed8;
+        }
+        
+        @media (max-width: 768px) {
+            .seller-status-overview,
+            .quick-actions,
+            .contact-info {
+                padding: 10px;
+            }
+            
+            .seller-status-overview > div,
+            .contact-info > div {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+    
+    {% if original %}
+    <script>
+        function approveSeller() {
+            if (confirm('Are you sure you want to approve this seller?')) {
+                // Set status to approved
+                document.getElementById('id_status').value = 'approved';
+                // Submit the form
+                document.getElementById('seller_form').submit();
+            }
+        }
+        
+        function rejectSeller() {
+            if (confirm('Are you sure you want to reject this seller?')) {
+                // Set status to rejected
+                document.getElementById('id_status').value = 'rejected';
+                // Submit the form
+                document.getElementById('seller_form').submit();
+            }
+        }
+        
+        // Add form ID for JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            if (form) {
+                form.id = 'seller_form';
+            }
+        });
+    </script>
+    {% endif %}
+{% endblock %} 

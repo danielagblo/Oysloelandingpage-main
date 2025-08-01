@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Center - Oysloe Marketplace</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .help-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 20px 60px;
+        }
+        
+        .help-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .help-header h1 {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .help-header p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .search-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.1);
+            margin-bottom: 3rem;
+            border: 1px solid rgba(34, 197, 94, 0.1);
+        }
+        
+        .search-box {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 1rem 3rem 1rem 1.5rem;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 1.1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .search-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1);
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+        
+        .help-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .help-category {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(34, 197, 94, 0.1);
+            cursor: pointer;
+        }
+        
+        .help-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(34, 197, 94, 0.15);
+            border-color: var(--primary-color);
+        }
+        
+        .category-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .category-icon i {
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .help-category h3 {
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .help-category p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+        
+        .category-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .category-link:hover {
+            color: var(--primary-dark);
+            transform: translateX(5px);
+        }
+        
+        .faq-section {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.1);
+            margin-bottom: 3rem;
+            border: 1px solid rgba(34, 197, 94, 0.1);
+        }
+        
+        .faq-header {
+            padding: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            text-align: center;
+        }
+        
+        .faq-header h2 {
+            color: var(--text-dark);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+        
+        .faq-question {
+            padding: 1.5rem 2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+        
+        .faq-question:hover {
+            background: rgba(34, 197, 94, 0.05);
+        }
+        
+        .faq-question.active {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .faq-answer {
+            padding: 0 2rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        .faq-answer.active {
+            padding: 0 2rem 1.5rem;
+            max-height: 200px;
+        }
+        
+        .faq-toggle {
+            color: var(--primary-color);
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-question.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+        
+        .contact-support {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .contact-support h2 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-support p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .contact-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .contact-method {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .contact-method i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .contact-method h4 {
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-method p {
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0;
+        }
+        
+        .back-to-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-home:hover {
+            color: var(--primary-dark);
+            transform: translateX(-5px);
+        }
+        
+        @media (max-width: 768px) {
+            .help-container {
+                padding: 100px 15px 40px;
+            }
+            
+            .help-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .help-header p {
+                font-size: 1.1rem;
+            }
+            
+            .help-categories {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .contact-methods {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .faq-question {
+                padding: 1rem 1.5rem;
+                font-size: 0.95rem;
+            }
+            
+            .faq-answer {
+                padding: 0 1.5rem;
+            }
+            
+            .faq-answer.active {
+                padding: 0 1.5rem 1rem;
+            }
+        }
+        
+        /* Search Results Styles */
+        .search-results {
+            margin-top: 2rem;
+            display: none;
+        }
+        
+        .search-results.active {
+            display: block;
+        }
+        
+        .search-results-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .search-results-header h3 {
+            color: var(--text-dark);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .search-results-header p {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+        
+        .search-result-item {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .search-result-item:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 5px 15px rgba(34, 197, 94, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .search-result-item h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .search-result-item p {
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+        
+        .search-result-type {
+            display: inline-block;
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--primary-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .search-result-type.faq {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+        }
+        
+        .search-result-type.category {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .search-result-type.guide {
+            background: rgba(168, 85, 247, 0.1);
+            color: #a855f7;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-light);
+        }
+        
+        .no-results i {
+            font-size: 3rem;
+            color: var(--border-color);
+            margin-bottom: 1rem;
+        }
+        
+        .no-results h3 {
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+        
+        .no-results p {
+            margin-bottom: 2rem;
+        }
+        
+        .suggested-searches {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+        
+        .suggested-search {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--primary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        
+        .suggested-search:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        /* Hide content when searching */
+        .content-hidden {
+            display: none !important;
+        }
+        
+        .show-content {
+            display: block !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="/static/your_icon.png.png" alt="OYSLOE Logo" class="logo-img">
+                <span style="font-weight: 700; color: var(--text-dark); margin-left: 0.5rem;">Oysloe</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.html#features" class="nav-link">Features</a>
+                <a href="index.html#categories" class="nav-link">Categories</a>
+                <a href="index.html#pricing" class="nav-link">Pricing</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-cta">
+                <a href="register.html" class="btn btn-primary">Start Selling</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-content">
+            <div class="mobile-nav-links">
+                <a href="index.html" class="mobile-nav-link">Home</a>
+                <a href="index.html#features" class="mobile-nav-link">Features</a>
+                <a href="index.html#categories" class="mobile-nav-link">Categories</a>
+                <a href="index.html#pricing" class="mobile-nav-link">Pricing</a>
+                <a href="index.html#contact" class="mobile-nav-link">Contact</a>
+            </div>
+            <div class="mobile-cta">
+                <a href="register.html" class="btn btn-primary">Start Selling</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Center Content -->
+    <div class="help-container">
+        <a href="index.html" class="back-to-home">
+            <i class="fas fa-arrow-left"></i>
+            Back to Home
+        </a>
+        
+        <div class="help-header">
+            <h1>Help Center</h1>
+            <p>Find answers to your questions and get the support you need to make the most of Oysloe marketplace</p>
+        </div>
+
+        <!-- Search Section -->
+        <div class="search-section">
+            <div class="search-box">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search for help articles, guides, and FAQs...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            
+            <!-- Search Results -->
+            <div class="search-results" id="searchResults">
+                <div class="search-results-header">
+                    <h3>Search Results</h3>
+                    <p>We found <span id="search-result-count">0</span> results for your search.</p>
+                </div>
+                <div id="search-results-container">
+                    <!-- Search results will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Help Categories -->
+        <div class="help-categories" id="helpCategories">
+            <div class="help-category">
+                <div class="category-icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <h3>Getting Started</h3>
+                <p>Learn how to create an account, set up your profile, and start using OYSLOE marketplace.</p>
+                <a href="#getting-started" class="category-link">
+                    Learn More <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div class="help-category">
+                <div class="category-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <h3>Buying Guide</h3>
+                <p>Everything you need to know about browsing, purchasing, and managing your orders.</p>
+                <a href="#buying-guide" class="category-link">
+                    Learn More <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div class="help-category">
+                <div class="category-icon">
+                    <i class="fas fa-store"></i>
+                </div>
+                <h3>Selling Guide</h3>
+                <p>Complete guide to listing products, managing inventory, and growing your business.</p>
+                <a href="#selling-guide" class="category-link">
+                    Learn More <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div class="help-category">
+                <div class="category-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <h3>Property Viewing</h3>
+                <p>Learn how to book property viewings, understand fees, and make confident decisions.</p>
+                <a href="#property-guide" class="category-link">
+                    Learn More <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div class="help-category">
+                <div class="category-icon">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <h3>Payments & Billing</h3>
+                <p>Information about payment methods, fees, refunds, and billing questions.</p>
+                <a href="#payments" class="category-link">
+                    Learn More <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div class="help-category">
+                <div class="category-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Safety & Security</h3>
+                <p>Learn about our security measures and how to protect your account and transactions.</p>
+                <a href="#safety" class="category-link">
+                    Learn More <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div class="help-category">
+                <div class="category-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3>App Support</h3>
+                <p>Get help with the OYSLOE mobile app, troubleshooting, and app-specific features.</p>
+                <a href="#app-support" class="category-link">
+                    Learn More <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Detailed Service Guides -->
+        <div class="service-guides" id="serviceGuides" style="margin-bottom: 4rem;">
+            <!-- Product Shopping Guide -->
+            <div class="service-guide" style="background: white; border-radius: 16px; box-shadow: 0 10px 30px rgba(34, 197, 94, 0.1); margin-bottom: 3rem; border: 1px solid rgba(34, 197, 94, 0.1); overflow: hidden;">
+                <div class="guide-header" style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%); color: white; padding: 2rem; text-align: center;">
+                    <h2 style="margin: 0; font-size: 2rem;">How to Shop Products on OYSLOE</h2>
+                    <p style="margin: 1rem 0 0 0; opacity: 0.9;">A complete guide to browsing and purchasing products</p>
+                </div>
+                
+                <div class="guide-content" style="padding: 2rem;">
+                    <div class="guide-step" style="margin-bottom: 2rem; padding: 1.5rem; background: rgba(34, 197, 94, 0.05); border-radius: 12px; border-left: 4px solid var(--primary-color);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-search" style="font-size: 1.2rem;"></i>
+                            Step 1: Browse Wide Range of Products
+                        </h3>
+                        <p style="color: var(--text-light); line-height: 1.6; margin-bottom: 1rem;">
+                            Shop a wide range of quality products from trusted sellers across Ghana. Whether it's tech, fashion, or home essentials, OYSLOE makes it easy to find what you need with powerful search and smart filters.
+                        </p>
+                        <ul style="color: var(--text-light); padding-left: 1.5rem;">
+                            <li>Use advanced search filters to find exactly what you need</li>
+                            <li>Browse by category, price range, location, and more</li>
+                            <li>Read detailed product descriptions and view high-quality images</li>
+                            <li>Check seller ratings and reviews for confidence</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="guide-step" style="margin-bottom: 2rem; padding: 1.5rem; background: rgba(34, 197, 94, 0.05); border-radius: 12px; border-left: 4px solid var(--primary-color);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-credit-card" style="font-size: 1.2rem;"></i>
+                            Step 2: Pay Fixed Small Ordering Fee
+                        </h3>
+                        <p style="color: var(--text-light); line-height: 1.6; margin-bottom: 1rem;">
+                            Pay a small ordering fee to place your request — this connects you with the seller or delivery agent.
+                        </p>
+                        <div style="background: rgba(34, 197, 94, 0.1); padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                            <p style="margin: 0; color: var(--primary-color); font-weight: 600;">
+                                💡 <strong>Important Note:</strong> This fee is not for the item or delivery itself. It's a service fee that connects you with the seller or delivery agent.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="guide-step" style="margin-bottom: 2rem; padding: 1.5rem; background: rgba(34, 197, 94, 0.05); border-radius: 12px; border-left: 4px solid var(--primary-color);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-truck" style="font-size: 1.2rem;"></i>
+                            Step 3: Pay on Delivery or Decline
+                        </h3>
+                        <p style="color: var(--text-light); line-height: 1.6; margin-bottom: 1rem;">
+                            Once you've made your choice, place your order in seconds and enjoy:
+                        </p>
+                        <ul style="color: var(--text-light); padding-left: 1.5rem;">
+                            <li><strong>✔️ Real-time updates</strong> - Track your order from placement to delivery</li>
+                            <li><strong>✔️ Direct access to sellers or delivery agents</strong> - Communicate directly for any questions</li>
+                            <li><strong>✔️ Full tracking from dispatch to doorstep</strong> - Know exactly where your order is</li>
+                            <li><strong>✔️ Pay on delivery</strong> - Only pay when you're satisfied with the product</li>
+                            <li><strong>✔️ Decline option</strong> - You can decline the order if it doesn't meet your expectations</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Property Viewing Guide -->
+            <div class="service-guide" style="background: white; border-radius: 16px; box-shadow: 0 10px 30px rgba(34, 197, 94, 0.1); margin-bottom: 3rem; border: 1px solid rgba(34, 197, 94, 0.1); overflow: hidden;">
+                <div class="guide-header" style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%); color: white; padding: 2rem; text-align: center;">
+                    <h2 style="margin: 0; font-size: 2rem;">How to View Properties on OYSLOE</h2>
+                    <p style="margin: 1rem 0 0 0; opacity: 0.9;">A complete guide to booking and viewing properties</p>
+                </div>
+                
+                <div class="guide-content" style="padding: 2rem;">
+                    <div class="guide-step" style="margin-bottom: 2rem; padding: 1.5rem; background: rgba(34, 197, 94, 0.05); border-radius: 12px; border-left: 4px solid var(--primary-color);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-home" style="font-size: 1.2rem;"></i>
+                            Step 1: Find the Right Property
+                        </h3>
+                        <p style="color: var(--text-light); line-height: 1.6; margin-bottom: 1rem;">
+                            Browse through thousands of property listings across Ghana. Use our advanced filters to find properties that match your criteria:
+                        </p>
+                        <ul style="color: var(--text-light); padding-left: 1.5rem;">
+                            <li>Filter by location, price range, property type, and amenities</li>
+                            <li>View high-quality photos and virtual tours</li>
+                            <li>Read detailed property descriptions and specifications</li>
+                            <li>Check agent ratings and reviews</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="guide-step" style="margin-bottom: 2rem; padding: 1.5rem; background: rgba(34, 197, 94, 0.05); border-radius: 12px; border-left: 4px solid var(--primary-color);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-calendar-check" style="font-size: 1.2rem;"></i>
+                            Step 2: Risk-Free Booking at Small Fee
+                        </h3>
+                        <p style="color: var(--text-light); line-height: 1.6; margin-bottom: 1rem;">
+                            To schedule a visit, pay a small booking fee. This confirms your interest and connects you to the agent — but does not cover the walking fee or time charges.
+                        </p>
+                        <div style="background: rgba(34, 197, 94, 0.1); padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                            <p style="margin: 0; color: var(--primary-color); font-weight: 600;">
+                                💡 <strong>Additional charges</strong> — a fixed walking fee and time-based fee — will apply during the appointment
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="guide-step" style="margin-bottom: 2rem; padding: 1.5rem; background: rgba(34, 197, 94, 0.05); border-radius: 12px; border-left: 4px solid var(--primary-color);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-eye" style="font-size: 1.2rem;"></i>
+                            Step 3: Visit & Decide with Confidence
+                        </h3>
+                        <p style="color: var(--text-light); line-height: 1.6; margin-bottom: 1rem;">
+                            The agent will start and end the appointment timer, and you'll be charged accordingly. View the space, ask questions, and if it doesn't feel right, you can walk away — no rent or deposit required.
+                        </p>
+                        <ul style="color: var(--text-light); padding-left: 1.5rem;">
+                            <li><strong>✔️ Timed appointments</strong> - Agent controls the timer for accurate billing</li>
+                            <li><strong>✔️ Ask questions freely</strong> - Get all the information you need</li>
+                            <li><strong>✔️ No pressure to commit</strong> - Walk away if it's not right for you</li>
+                            <li><strong>✔️ No rent or deposit required</strong> - Only pay for the viewing service</li>
+                            <li><strong>✔️ Transparent pricing</strong> - Know exactly what you're paying for</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="faq-section" id="faqSection">
+            <div class="faq-header">
+                <h2>Frequently Asked Questions</h2>
+                <p>Quick answers to the most common questions</p>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How do I create an account on OYSLOE?</span>
+                    <i class="fas fa-chevron-down faq-toggle"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Creating an account is easy! Simply click the "Sign Up" button, enter your phone number, and follow the verification process. You'll receive a verification code via SMS to complete your registration.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>What are the fees for selling on OYSLOE?</span>
+                    <i class="fas fa-chevron-down faq-toggle"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>OYSLOE charges a 5% transaction fee on all sales for standard sellers. Premium sellers enjoy a reduced rate of 3%. Payment processing fees may also apply depending on your chosen payment method.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How do I list my first product?</span>
+                    <i class="fas fa-chevron-down faq-toggle"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>To list your first product, go to your seller dashboard, click "Add New Listing," upload high-quality photos, write a detailed description, set your price, and choose your shipping options. Your listing will be reviewed and published within 24 hours.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>What payment methods are accepted?</span>
+                    <i class="fas fa-chevron-down faq-toggle"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>We accept multiple payment methods including mobile money (MTN, Vodafone, AirtelTigo), bank transfers, and credit/debit cards. All payments are processed securely through our trusted payment partners.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How do I handle returns and refunds?</span>
+                    <i class="fas fa-chevron-down faq-toggle"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Buyers can request returns within 7 days of receiving their order. Sellers are responsible for setting their own return policies. OYSLOE provides dispute resolution services to help resolve conflicts between buyers and sellers.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Is my personal information secure?</span>
+                    <i class="fas fa-chevron-down faq-toggle"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, we take your privacy and security seriously. All personal information is encrypted and stored securely. We never share your data with third parties without your consent. Read our <a href="privacy.html" style="color: var(--primary-color);">Privacy Policy</a> for more details.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How do I contact customer support?</span>
+                    <i class="fas fa-chevron-down faq-toggle"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>You can reach our customer support team through multiple channels: email at support@bricsky.com, phone at +233 30 395 9615, WhatsApp, or through the live chat feature in our mobile app. We typically respond within 24 hours.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Can I sell services on OYSLOE?</span>
+                    <i class="fas fa-chevron-down faq-toggle"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Currently, OYSLOE focuses on physical products. However, we're working on expanding to include service listings in the future. Stay tuned for updates!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Form Section -->
+        <div class="contact-form-section" style="background: white; border-radius: 16px; box-shadow: 0 10px 30px rgba(34, 197, 94, 0.1); margin-bottom: 3rem; border: 1px solid rgba(34, 197, 94, 0.1); overflow: hidden;">
+            <div class="form-header" style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%); color: white; padding: 2rem; text-align: center;">
+                <h2 style="margin: 0; font-size: 2rem;">Report an Issue or Send Feedback</h2>
+                <p style="margin: 1rem 0 0 0; opacity: 0.9;">We're here to help! Send us your complaint, report an issue, or share your feedback.</p>
+            </div>
+            
+            <div class="form-content" style="padding: 2rem;">
+                <form id="contactForm" style="max-width: 600px; margin: 0 auto;">
+                    {% csrf_token %}
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div>
+                            <label for="firstName" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-dark);">First Name *</label>
+                            <input type="text" id="firstName" name="firstName" required style="width: 100%; padding: 12px 16px; border: 2px solid var(--border-color); border-radius: 8px; font-size: 1rem; outline: none; transition: all 0.3s ease;">
+                        </div>
+                        <div>
+                            <label for="lastName" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-dark);">Last Name *</label>
+                            <input type="text" id="lastName" name="lastName" required style="width: 100%; padding: 12px 16px; border: 2px solid var(--border-color); border-radius: 8px; font-size: 1rem; outline: none; transition: all 0.3s ease;">
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-dark);">Email Address *</label>
+                        <input type="email" id="email" name="email" required style="width: 100%; padding: 12px 16px; border: 2px solid var(--border-color); border-radius: 8px; font-size: 1rem; outline: none; transition: all 0.3s ease;">
+                    </div>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <label for="phone" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-dark);">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" style="width: 100%; padding: 12px 16px; border: 2px solid var(--border-color); border-radius: 8px; font-size: 1rem; outline: none; transition: all 0.3s ease;">
+                    </div>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <label for="issueType" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-dark);">Issue Type *</label>
+                        <select id="issueType" name="issueType" required style="width: 100%; padding: 12px 16px; border: 2px solid var(--border-color); border-radius: 8px; font-size: 1rem; outline: none; transition: all 0.3s ease; background: white;">
+                            <option value="">Select an issue type</option>
+                            <option value="technical">Technical Issue</option>
+                            <option value="payment">Payment Problem</option>
+                            <option value="delivery">Delivery Issue</option>
+                            <option value="seller">Seller Problem</option>
+                            <option value="buyer">Buyer Problem</option>
+                            <option value="account">Account Issue</option>
+                            <option value="property">Property Viewing Issue</option>
+                            <option value="refund">Refund Request</option>
+                            <option value="complaint">General Complaint</option>
+                            <option value="feedback">Feedback/Suggestion</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <label for="subject" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-dark);">Subject *</label>
+                        <input type="text" id="subject" name="subject" required style="width: 100%; padding: 12px 16px; border: 2px solid var(--border-color); border-radius: 8px; font-size: 1rem; outline: none; transition: all 0.3s ease;">
+                    </div>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <label for="message" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-dark);">Message *</label>
+                        <textarea id="message" name="message" rows="6" required placeholder="Please describe your issue or complaint in detail. Include any relevant information such as order numbers, transaction IDs, or screenshots if applicable." style="width: 100%; padding: 12px 16px; border: 2px solid var(--border-color); border-radius: 8px; font-size: 1rem; outline: none; transition: all 0.3s ease; resize: vertical; font-family: inherit;"></textarea>
+                    </div>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <label style="display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
+                            <input type="checkbox" required style="margin-top: 0.2rem;">
+                            <span>I agree to the <a href="privacy.html" style="color: var(--primary-color);">Privacy Policy</a> and <a href="terms.html" style="color: var(--primary-color);">Terms of Service</a>. I understand that my information will be used to help resolve my issue.</span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" style="width: 100%; padding: 16px 24px; background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%); color: white; border: none; border-radius: 12px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 8px 25px rgba(34, 197, 94, 0.3);">
+                        <i class="fas fa-paper-plane" style="margin-right: 0.5rem;"></i>
+                        Send Message
+                    </button>
+                </form>
+                
+                <div id="formSuccess" style="display: none; background: rgba(34, 197, 94, 0.1); border: 1px solid var(--primary-color); border-radius: 8px; padding: 1rem; margin-top: 1rem; text-align: center; color: var(--primary-color); font-weight: 600;">
+                    <i class="fas fa-check-circle" style="margin-right: 0.5rem;"></i>
+                    Thank you! Your message has been sent successfully. We'll get back to you within 24 hours.
+                </div>
+                
+                <div id="formError" style="display: none; background: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; border-radius: 8px; padding: 1rem; margin-top: 1rem; text-align: center; color: #ef4444; font-weight: 600;">
+                    <i class="fas fa-exclamation-circle" style="margin-right: 0.5rem;"></i>
+                    There was an error sending your message. Please try again or contact us directly.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Oysloe</h3>
+                    <p>Your one-stop marketplace for everything you need. Buy, sell and book with ease.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="{% url 'home' %}#features">Features</a></li>
+                        <li><a href="{% url 'home' %}#categories">Categories</a></li>
+                        <li><a href="{% url 'home' %}#how-it-works">How It Works</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="{% url 'help' %}">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="{% url 'privacy' %}">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <div class="contact-info">
+                        <p><i class="fas fa-phone"></i> <a href="tel:+233303959615" style="color: inherit; text-decoration: none;">+233 30 395 9615</a></p>
+                        <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/233303959615" target="_blank" style="color: inherit; text-decoration: none;">WhatsApp</a></p>
+                        <p><i class="fas fa-envelope"></i> <a href="mailto:support@bricsky.com" style="color: inherit; text-decoration: none;">support@bricsky.com</a></p>
+                        <p><i class="fas fa-map-marker-alt"></i> <a href="https://maps.app.goo.gl/phxGiYeCW4CLMpcw7" target="_blank" style="color: inherit; text-decoration: none;">Accra, Ghana</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Owned by Bricsky Holdings</p>
+                <p>&copy; {% now 'Y' %} OYSLOE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Close mobile menu when clicking on links
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // FAQ toggle functionality
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const isActive = element.classList.contains('active');
+            
+            // Close all other FAQs
+            document.querySelectorAll('.faq-question').forEach(q => {
+                q.classList.remove('active');
+                q.nextElementSibling.classList.remove('active');
+            });
+            
+            // Toggle current FAQ
+            if (!isActive) {
+                element.classList.add('active');
+                answer.classList.add('active');
+            }
+        }
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+        const searchResultsContainer = document.getElementById('search-results-container');
+        const searchResultCount = document.getElementById('search-result-count');
+        const helpCategories = document.getElementById('helpCategories');
+        const serviceGuides = document.getElementById('serviceGuides');
+        const faqSection = document.getElementById('faqSection');
+
+        // Search data - FAQ items
+        const faqData = [
+            {
+                question: "How do I create an account on OYSLOE?",
+                answer: "Creating an account is easy! Simply click the \"Sign Up\" button, enter your phone number, and follow the verification process. You'll receive a verification code via SMS to complete your registration.",
+                type: "faq"
+            },
+            {
+                question: "What are the fees for selling on OYSLOE?",
+                answer: "OYSLOE charges a 5% transaction fee on all sales for standard sellers. Premium sellers enjoy a reduced rate of 3%. Payment processing fees may also apply depending on your chosen payment method.",
+                type: "faq"
+            },
+            {
+                question: "How do I list my first product?",
+                answer: "To list your first product, go to your seller dashboard, click \"Add New Listing,\" upload high-quality photos, write a detailed description, set your price, and choose your shipping options. Your listing will be reviewed and published within 24 hours.",
+                type: "faq"
+            },
+            {
+                question: "What payment methods are accepted?",
+                answer: "We accept multiple payment methods including mobile money (MTN, Vodafone, AirtelTigo), bank transfers, and credit/debit cards. All payments are processed securely through our trusted payment partners.",
+                type: "faq"
+            },
+            {
+                question: "How do I handle returns and refunds?",
+                answer: "Buyers can request returns within 7 days of receiving their order. Sellers are responsible for setting their own return policies. OYSLOE provides dispute resolution services to help resolve conflicts between buyers and sellers.",
+                type: "faq"
+            },
+            {
+                question: "Is my personal information secure?",
+                answer: "Yes, we take your privacy and security seriously. All personal information is encrypted and stored securely. We never share your data with third parties without your consent. Read our Privacy Policy for more details.",
+                type: "faq"
+            },
+            {
+                question: "How do I contact customer support?",
+                answer: "You can reach our customer support team through multiple channels: email at support@bricsky.com, phone at +233 30 395 9615, WhatsApp, or through the live chat feature in our mobile app. We typically respond within 24 hours.",
+                type: "faq"
+            },
+            {
+                question: "Can I sell services on OYSLOE?",
+                answer: "Currently, OYSLOE focuses on physical products. However, we're working on expanding to include service listings in the future. Stay tuned for updates!",
+                type: "faq"
+            }
+        ];
+
+        // Search data - Help categories
+        const categoryData = [
+            {
+                title: "Getting Started",
+                description: "Learn how to create an account, set up your profile, and start using OYSLOE marketplace.",
+                type: "category"
+            },
+            {
+                title: "Buying Guide",
+                description: "Everything you need to know about browsing, purchasing, and managing your orders.",
+                type: "category"
+            },
+            {
+                title: "Selling Guide",
+                description: "Complete guide to listing products, managing inventory, and growing your business.",
+                type: "category"
+            },
+            {
+                title: "Property Viewing",
+                description: "Learn how to book property viewings, understand fees, and make confident decisions.",
+                type: "category"
+            },
+            {
+                title: "Payments & Billing",
+                description: "Information about payment methods, fees, refunds, and billing questions.",
+                type: "category"
+            },
+            {
+                title: "Safety & Security",
+                description: "Learn about our security measures and how to protect your account and transactions.",
+                type: "category"
+            },
+            {
+                title: "App Support",
+                description: "Get help with the OYSLOE mobile app, troubleshooting, and app-specific features.",
+                type: "category"
+            }
+        ];
+
+        // Search data - Service guides
+        const guideData = [
+            {
+                title: "How to Shop Products on OYSLOE",
+                description: "A complete guide to browsing and purchasing products. Learn about browsing wide range of products, paying fixed small ordering fees, and pay on delivery options.",
+                type: "guide"
+            },
+            {
+                title: "How to View Properties on OYSLOE",
+                description: "A complete guide to booking and viewing properties. Learn about finding the right property, risk-free booking at small fees, and visiting with confidence.",
+                type: "guide"
+            }
+        ];
+
+        // Suggested searches
+        const suggestedSearches = [
+            "account creation",
+            "payment methods",
+            "product listing",
+            "property viewing",
+            "fees and charges",
+            "security",
+            "returns",
+            "customer support"
+        ];
+
+        // Search function
+        function performSearch(query) {
+            query = query.toLowerCase().trim();
+            
+            if (query.length < 2) {
+                hideSearchResults();
+                return;
+            }
+
+            const results = [];
+            
+            // Search FAQ items
+            faqData.forEach(faq => {
+                if (faq.question.toLowerCase().includes(query) || 
+                    faq.answer.toLowerCase().includes(query)) {
+                    results.push({
+                        ...faq,
+                        title: faq.question,
+                        description: faq.answer
+                    });
+                }
+            });
+            
+            // Search categories
+            categoryData.forEach(category => {
+                if (category.title.toLowerCase().includes(query) || 
+                    category.description.toLowerCase().includes(query)) {
+                    results.push(category);
+                }
+            });
+            
+            // Search guides
+            guideData.forEach(guide => {
+                if (guide.title.toLowerCase().includes(query) || 
+                    guide.description.toLowerCase().includes(query)) {
+                    results.push(guide);
+                }
+            });
+            
+            displaySearchResults(results, query);
+        }
+
+        // Display search results
+        function displaySearchResults(results, query) {
+            searchResultCount.textContent = results.length;
+            
+            if (results.length === 0) {
+                searchResultsContainer.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search"></i>
+                        <h3>No results found for "${query}"</h3>
+                        <p>Try searching with different keywords or browse our help categories below.</p>
+                        <div class="suggested-searches">
+                            ${suggestedSearches.map(suggestion => 
+                                `<span class="suggested-search" onclick="searchInput.value='${suggestion}'; performSearch('${suggestion}')">${suggestion}</span>`
+                            ).join('')}
+                        </div>
+                    </div>
+                `;
+            } else {
+                searchResultsContainer.innerHTML = results.map(result => `
+                    <div class="search-result-item" onclick="handleResultClick('${result.type}', '${result.title}')">
+                        <span class="search-result-type ${result.type}">${result.type.toUpperCase()}</span>
+                        <h4>${result.title}</h4>
+                        <p>${result.description}</p>
+                    </div>
+                `).join('');
+            }
+            
+            showSearchResults();
+        }
+
+        // Show search results
+        function showSearchResults() {
+            searchResults.classList.add('active');
+            helpCategories.classList.add('content-hidden');
+            serviceGuides.classList.add('content-hidden');
+            faqSection.classList.add('content-hidden');
+        }
+
+        // Hide search results
+        function hideSearchResults() {
+            searchResults.classList.remove('active');
+            helpCategories.classList.remove('content-hidden');
+            serviceGuides.classList.remove('content-hidden');
+            faqSection.classList.remove('content-hidden');
+        }
+
+        // Handle result click
+        function handleResultClick(type, title) {
+            hideSearchResults();
+            searchInput.value = '';
+            
+            // Scroll to relevant section based on type
+            if (type === 'faq') {
+                // Find and open the FAQ item
+                const faqQuestions = document.querySelectorAll('.faq-question');
+                faqQuestions.forEach(question => {
+                    if (question.querySelector('span').textContent === title) {
+                        question.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        setTimeout(() => toggleFAQ(question), 500);
+                    }
+                });
+            } else if (type === 'category') {
+                // Scroll to help categories
+                helpCategories.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else if (type === 'guide') {
+                // Scroll to service guides
+                serviceGuides.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Add event listeners
+        searchInput.addEventListener('input', (e) => {
+            performSearch(e.target.value);
+        });
+
+        searchInput.addEventListener('focus', () => {
+            if (searchInput.value.length >= 2) {
+                performSearch(searchInput.value);
+            }
+        });
+
+        // Clear search when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                hideSearchResults();
+            }
+        });
+
+        // Contact form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const submitButton = this.querySelector('button[type="submit"]');
+            const successMessage = document.getElementById('formSuccess');
+            const errorMessage = document.getElementById('formError');
+            
+            // Show loading state
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 0.5rem;"></i>Sending...';
+            
+            // Hide previous messages
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+            
+            // Submit to Django backend
+            fetch('/api/public/submit-contact/', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    successMessage.style.display = 'block';
+                    this.reset();
+                    // Scroll to success message
+                    successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    throw new Error(data.message || 'Submission failed');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                errorMessage.style.display = 'block';
+                // Scroll to error message
+                errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            })
+            .finally(() => {
+                // Reset button state
+                submitButton.disabled = false;
+                submitButton.innerHTML = '<i class="fas fa-paper-plane" style="margin-right: 0.5rem;"></i>Send Message';
+            });
+        });
+    </script>
+</body>
+</html> 

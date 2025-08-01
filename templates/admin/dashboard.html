@@ -1,0 +1,182 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block title %}Dashboard | {{ site_title|default:_('OYSLOE Admin') }}{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <!-- Statistics Cards -->
+    <div class="row" style="display: flex; gap: 20px; margin-bottom: 30px; flex-wrap: wrap;">
+        <div class="stat-card" style="flex: 1; min-width: 200px;">
+            <h4>{{ total_sellers }}</h4>
+            <p>Total Sellers</p>
+        </div>
+        <div class="stat-card" style="flex: 1; min-width: 200px; background: linear-gradient(135deg, #f59e0b, #d97706);">
+            <h4>{{ pending_sellers }}</h4>
+            <p>Pending Review</p>
+        </div>
+        <div class="stat-card" style="flex: 1; min-width: 200px; background: linear-gradient(135deg, #10b981, #059669);">
+            <h4>{{ approved_sellers }}</h4>
+            <p>Approved</p>
+        </div>
+        <div class="stat-card" style="flex: 1; min-width: 200px; background: linear-gradient(135deg, #ef4444, #dc2626);">
+            <h4>{{ rejected_sellers }}</h4>
+            <p>Rejected</p>
+        </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="row" style="display: flex; gap: 20px; flex-wrap: wrap;">
+        <!-- Recent Sellers -->
+        <div class="dashboard-card" style="flex: 2; min-width: 400px;">
+            <h3>Recent Seller Applications</h3>
+            {% if recent_sellers %}
+                <div class="table-responsive">
+                    <table class="table" style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="background: #f8fafc;">
+                                <th style="padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0;">Business Name</th>
+                                <th style="padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0;">Owner</th>
+                                <th style="padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0;">Status</th>
+                                <th style="padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0;">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for seller in recent_sellers %}
+                            <tr>
+                                <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">
+                                    <strong>{{ seller.business_name }}</strong>
+                                </td>
+                                <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">
+                                    {{ seller.owner_name }}
+                                </td>
+                                <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">
+                                    <span class="status-badge status-{{ seller.status }}">
+                                        {{ seller.get_status_display }}
+                                    </span>
+                                </td>
+                                <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">
+                                    {{ seller.created_at|date:"M d, Y" }}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div style="margin-top: 15px;">
+                    <a href="{% url 'admin:sellers_seller_changelist' %}" class="btn-primary">View All Sellers</a>
+                </div>
+            {% else %}
+                <p style="color: #6b7280; font-style: italic;">No recent seller applications.</p>
+            {% endif %}
+        </div>
+
+        <!-- Business Type Distribution -->
+        <div class="dashboard-card" style="flex: 1; min-width: 300px;">
+            <h3>Business Type Distribution</h3>
+            {% if business_types %}
+                <div style="margin-top: 15px;">
+                    {% for type in business_types %}
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 8px; background: #f8fafc; border-radius: 6px;">
+                        <span style="font-weight: 500;">{{ type.business_type|title }}</span>
+                        <span style="background: #2563eb; color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">
+                            {{ type.count }}
+                        </span>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p style="color: #6b7280; font-style: italic;">No business type data available.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Analytics Section -->
+    {% if recent_analytics %}
+    <div class="dashboard-card" style="margin-top: 20px;">
+        <h3>Recent Analytics (Last 7 Days)</h3>
+        <div class="table-responsive">
+            <table class="table" style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="background: #f8fafc;">
+                        <th style="padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0;">Date</th>
+                        <th style="padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0;">Page Views</th>
+                        <th style="padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0;">Form Submissions</th>
+                        <th style="padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0;">Total Activity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for analytics in recent_analytics %}
+                    <tr>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">
+                            {{ analytics.date|date:"M d, Y" }}
+                        </td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">
+                            {{ analytics.page_views }}
+                        </td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">
+                            {{ analytics.form_submissions }}
+                        </td>
+                        <td style="padding: 12px; border-bottom: 1px solid #e2e8f0;">
+                            <strong>{{ analytics.page_views|add:analytics.form_submissions }}</strong>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Quick Actions -->
+    <div class="dashboard-card" style="margin-top: 20px;">
+        <h3>Quick Actions</h3>
+        <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 15px;">
+            <a href="{% url 'admin:sellers_seller_add' %}" class="btn-primary">Add New Seller</a>
+            <a href="{% url 'admin:sellers_seller_changelist' %}?status__exact=pending" class="btn-warning">Review Pending</a>
+            <a href="{% url 'admin:sellers_analytics_changelist' %}" class="btn-success">View Analytics</a>
+            <a href="{% url 'admin:index' %}" class="btn-primary">Admin Home</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .dashboard-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .table-responsive {
+        overflow-x: auto;
+    }
+    
+    .table {
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    
+    .table th,
+    .table td {
+        border: none;
+    }
+    
+    .table tbody tr:hover {
+        background-color: #f8fafc;
+    }
+    
+    @media (max-width: 768px) {
+        .row {
+            flex-direction: column;
+        }
+        
+        .stat-card {
+            min-width: 100%;
+        }
+        
+        .dashboard-card {
+            min-width: 100%;
+        }
+    }
+</style>
+{% endblock %} 

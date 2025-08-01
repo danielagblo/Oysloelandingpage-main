@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Seller Form</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; }
+        input, select, textarea { width: 100%; padding: 8px; border: 1px solid #ddd; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; }
+        .result { margin-top: 20px; padding: 10px; border: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <h1>Test Seller Form Submission</h1>
+    
+    <form id="testForm">
+        <div class="form-group">
+            <label for="owner_name">Full Name:</label>
+            <input type="text" id="owner_name" value="Kofi Amua" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="phone_number">Phone Number:</label>
+            <input type="tel" id="phone_number" value="0552891234" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="email_address">Email Address:</label>
+            <input type="email" id="email_address" value="info@example.com" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="business_name">Business Name:</label>
+            <input type="text" id="business_name" value="OYSLOE Mart" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="location">Business Location:</label>
+            <input type="text" id="location" value="Accra, Spintex Road" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="inventory_size">Inventory Size:</label>
+            <select id="inventory_size" required>
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="business_description">Brief Description of Your Business:</label>
+            <textarea id="business_description" rows="3" required>We sell affordable fashion accessories for young adults across Ghana.</textarea>
+        </div>
+        
+        <button type="submit">Submit Test Form</button>
+    </form>
+    
+    <div id="result" class="result" style="display: none;"></div>
+    
+    <script>
+        document.getElementById('testForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                owner_name: document.getElementById('owner_name').value,
+                phone_number: document.getElementById('phone_number').value,
+                email_address: document.getElementById('email_address').value,
+                business_name: document.getElementById('business_name').value,
+                location: document.getElementById('location').value,
+                inventory_size: document.getElementById('inventory_size').value,
+                business_description: document.getElementById('business_description').value
+            };
+            
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = 'Submitting...';
+            
+            try {
+                console.log('Submitting data:', formData);
+                
+                const response = await fetch('http://localhost:8000/api/submit-seller/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                console.log('Response status:', response.status);
+                console.log('Response headers:', response.headers);
+                
+                const result = await response.json();
+                console.log('Response data:', result);
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <h3>✅ Success!</h3>
+                        <p>Message: ${result.message}</p>
+                        <p>Seller ID: ${result.sellerId}</p>
+                        <p>Check the Django admin panel to see the new seller.</p>
+                    `;
+                    resultDiv.style.backgroundColor = '#d4edda';
+                    resultDiv.style.borderColor = '#c3e6cb';
+                } else {
+                    resultDiv.innerHTML = `
+                        <h3>❌ Error!</h3>
+                        <p>Status: ${response.status}</p>
+                        <p>Error: ${result.error || 'Unknown error'}</p>
+                        <p>Details: ${JSON.stringify(result.details || {}, null, 2)}</p>
+                    `;
+                    resultDiv.style.backgroundColor = '#f8d7da';
+                    resultDiv.style.borderColor = '#f5c6cb';
+                }
+            } catch (error) {
+                console.error('Network error:', error);
+                resultDiv.innerHTML = `
+                    <h3>❌ Network Error!</h3>
+                    <p>Error: ${error.message}</p>
+                    <p>Make sure the Django server is running on port 8000.</p>
+                `;
+                resultDiv.style.backgroundColor = '#f8d7da';
+                resultDiv.style.borderColor = '#f5c6cb';
+            }
+        });
+    </script>
+</body>
+</html> 
