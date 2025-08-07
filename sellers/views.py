@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
+from django.views.decorators.http import require_http_methods
 from django.http import JsonResponse
 from django.db.models import Count, Sum, Q
 from django.utils import timezone
@@ -11,7 +12,7 @@ from rest_framework import viewsets, status, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import Seller, Analytics
+from .models import Seller, Analytics, PricingPlan
 from .serializers import (
     SellerSerializer, SellerCreateSerializer, SellerStatusUpdateSerializer,
     AnalyticsSerializer, DashboardStatsSerializer
@@ -299,6 +300,37 @@ def track_pageview(request):
     return JsonResponse({
         'error': 'Method not allowed'
     }, status=405)
+
+@require_http_methods(["GET"])
+def pricing_api(request):
+    """API endpoint to get pricing plans"""
+    try:
+        pricing_plans = PricingPlan.objects.filter(is_active=True).order_by('monthly_price')
+        
+        plans_data = []
+        for plan in pricing_plans:
+            plans_data.append({
+                'name': plan.name,
+                'display_name': plan.display_name,
+                'description': plan.description,
+                'monthly_price': float(plan.monthly_price),
+                'yearly_price': float(plan.yearly_price),
+                'cancelled_monthly_price': float(plan.cancelled_monthly_price) if plan.cancelled_monthly_price else None,
+                'cancelled_yearly_price': float(plan.cancelled_yearly_price) if plan.cancelled_yearly_price else None,
+                'is_popular': plan.is_popular,
+                'yearly_discount': plan.yearly_discount_percentage,
+                'has_cancelled_prices': plan.has_cancelled_prices
+            })
+        
+        return JsonResponse({
+            'success': True,
+            'plans': plans_data
+        })
+    except Exception as e:
+        return JsonResponse({
+            'success': False,
+            'error': str(e)
+        }, status=500)
 
 @login_required
 def admin_dashboard(request):

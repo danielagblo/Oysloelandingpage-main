@@ -10,6 +10,7 @@ urlpatterns = [
     # Public endpoints (no authentication required) - MUST come before router
     path('submit-seller/', views.submit_seller_form, name='submit-seller'),
     path('track-pageview/', views.track_pageview, name='track-pageview'),
+    path('pricing/', views.pricing_api, name='pricing-api'),
     # path('public/submit-contact/', views.submit_contact_form, name='submit-contact'),
     
     # API endpoints (for authenticated users)
