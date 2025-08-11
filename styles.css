@@ -3354,3 +3354,203 @@ input:checked + .slider:before {
     content: '¢';
     margin-right: 0.2rem;
 }
+
+/* Coming Soon Section Styles */
+.coming-soon {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 80px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.coming-soon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.3;
+}
+
+.coming-soon-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.coming-soon h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    animation: pulse 2s infinite;
+}
+
+.coming-soon p {
+    font-size: 1.3rem;
+    margin-bottom: 3rem;
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+.countdown-timer {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.timer-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 1.5rem;
+    min-width: 120px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.timer-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.timer-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    margin-bottom: 0.5rem;
+}
+
+.timer-label {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.8;
+    font-weight: 500;
+}
+
+.coming-soon-cta {
+    margin-top: 2rem;
+}
+
+.coming-soon-cta .btn-large {
+    font-size: 1.2rem;
+    padding: 1.2rem 2.5rem;
+    background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+    border: none;
+    box-shadow: 0 8px 25px rgba(238, 90, 36, 0.4);
+    transition: all 0.3s ease;
+}
+
+.coming-soon-cta .btn-large:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(238, 90, 36, 0.6);
+    background: linear-gradient(45deg, #ee5a24, #ff6b6b);
+}
+
+.early-bird-text {
+    margin-top: 1rem;
+    font-size: 1rem;
+    opacity: 0.8;
+    font-style: italic;
+}
+
+.launch-message {
+    text-align: center;
+    padding: 2rem;
+}
+
+.launch-message h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.launch-message p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Responsive Design for Coming Soon Section */
+@media (max-width: 768px) {
+    .coming-soon {
+        padding: 60px 0;
+    }
+    
+    .coming-soon h1 {
+        font-size: 2.5rem;
+    }
+    
+    .coming-soon p {
+        font-size: 1.1rem;
+    }
+    
+    .countdown-timer {
+        gap: 1rem;
+    }
+    
+    .timer-item {
+        min-width: 100px;
+        padding: 1rem;
+    }
+    
+    .timer-number {
+        font-size: 2rem;
+    }
+    
+    .timer-label {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .coming-soon h1 {
+        font-size: 2rem;
+    }
+    
+    .coming-soon p {
+        font-size: 1rem;
+    }
+    
+    .countdown-timer {
+        gap: 0.5rem;
+    }
+    
+    .timer-item {
+        min-width: 80px;
+        padding: 0.8rem;
+    }
+    
+    .timer-number {
+        font-size: 1.5rem;
+    }
+    
+    .timer-label {
+        font-size: 0.7rem;
+    }
+    
+    .coming-soon-cta .btn-large {
+        font-size: 1rem;
+        padding: 1rem 2rem;
+    }
+}

@@ -335,4 +335,51 @@ style.textContent = `
         font-weight: 600;
     }
 `;
-document.head.appendChild(style); 
+document.head.appendChild(style);
+
+// Countdown Timer Functionality
+function updateCountdown() {
+    // Set the launch date (you can modify this to your desired launch date)
+    const launchDate = new Date('2024-12-31T00:00:00').getTime();
+    const now = new Date().getTime();
+    const distance = launchDate - now;
+
+    if (distance > 0) {
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Update the timer elements
+        const daysElement = document.getElementById('days');
+        const hoursElement = document.getElementById('hours');
+        const minutesElement = document.getElementById('minutes');
+        const secondsElement = document.getElementById('seconds');
+
+        if (daysElement) daysElement.textContent = days.toString().padStart(2, '0');
+        if (hoursElement) hoursElement.textContent = hours.toString().padStart(2, '0');
+        if (minutesElement) minutesElement.textContent = minutes.toString().padStart(2, '0');
+        if (secondsElement) secondsElement.textContent = seconds.toString().padStart(2, '0');
+    } else {
+        // Launch date has passed
+        const countdownTimer = document.querySelector('.countdown-timer');
+        if (countdownTimer) {
+            countdownTimer.innerHTML = '<div class="launch-message"><h2>🎉 We\'re Live! 🎉</h2><p>OYSLOE Marketplace is now open for business!</p></div>';
+        }
+    }
+}
+
+// Initialize countdown timer when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Start the countdown timer
+    updateCountdown();
+    
+    // Update countdown every second
+    setInterval(updateCountdown, 1000);
+    
+    // Initialize other existing functionality
+    const billingToggle = document.getElementById('billingToggle');
+    if (billingToggle) {
+        billingToggle.addEventListener('change', updatePricing);
+    }
+}); 
