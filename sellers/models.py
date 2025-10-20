@@ -91,6 +91,12 @@ class Seller(models.Model):
     # Status and Timestamps
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    
+    reviewed_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='reviewed_sellers')
+    reviewed_at = models.DateTimeField(null=True, blank=True)
+    review_notes = models.TextField(blank=True, default='')
     
     # Admin Assignment
     assigned_admins = models.ManyToManyField(User, related_name='assigned_sellers', blank=True)
